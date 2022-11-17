@@ -1,8 +1,9 @@
 import express from "express";
 const router = express.Router();
+import * as auth from "../controllers/auth";
 
-router.get("/", (req, res) => {
-  res.status(200).json("todo ok");
-});
+router.get("/", auth.allUsers);
+router.get("/:id", auth.findUser);
+router.post("/", auth.createUser);
 
 export { router };

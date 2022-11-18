@@ -1,5 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../store/store";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface CounterState {
   name: string;
@@ -14,21 +13,7 @@ const initialState = {
 export const userSlice = createSlice({
   name: "crudUser",
   initialState,
-  reducers: {
-    sendEmail: (state, action) => {
-      state.users = action.payload;
-    },
-  },
+  reducers: {},
 });
-
-export const { sendEmail } = userSlice.actions;
-
-export function Email(email: string) {
-  return function (dispatch: any) {
-    dispatch({
-      payload: email,
-    });
-  };
-}
 
 export default userSlice.reducer;

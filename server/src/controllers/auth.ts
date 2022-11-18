@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import * as Interface from "../interfaces/index";
 import User from "../models/user";
@@ -48,6 +48,11 @@ const findUser = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Toma una identificación de usuario, encuentra al usuario por esa identificación y actualiza al
+ * usuario con los datos en el cuerpo de la solicitud.
+ */
+
 const modifyDataUser = async (req: Request, res: Response) => {
   const { id } = req.params;
   User.findByIdAndUpdate(
@@ -70,6 +75,30 @@ const modifyDataUser = async (req: Request, res: Response) => {
 };
 
 /**
+ * Elimina un usuario de la base de datos por id.
+ */
+
+const deleteUserId = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const deleteUser = await User.findByIdAndDelete(id);
+
+  try {
+    if (!deleteUser) {
+      return res.status(400).json({
+        delete: false,
+        message: "No se elimino al usuario",
+      });
+    }
+    return res.status(200).json({
+      delete: true,
+      user: deleteUser,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
 Crea un nuevo usuario en la base de datos.
 */
 
@@ -79,8 +108,7 @@ const createUser = async (req: Request, res: Response) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { name, city, phone } = req.body;
-
+  const { name, city, phone }: Interface.DataUser = req.body;
   try {
     const replique = await User.findOne({ phone });
     if (replique) {
@@ -101,4 +129,4 @@ const createUser = async (req: Request, res: Response) => {
   }
 };
 
-export { allUsers, createUser, findUser, modifyDataUser };
+export { allUsers, createUser, findUser, modifyDataUser, deleteUserId };

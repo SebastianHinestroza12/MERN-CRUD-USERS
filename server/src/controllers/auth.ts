@@ -69,7 +69,7 @@ const modifyDataUser = async (req: Request, res: Response) => {
         if (err) {
           return res.status(400).json({
             modificado: false,
-            message: "error al modificar los datos",
+            message: "Error al modificar los datos",
           });
         }
         return res.status(200).json({

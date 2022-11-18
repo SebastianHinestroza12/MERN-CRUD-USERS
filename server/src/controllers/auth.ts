@@ -54,24 +54,33 @@ const findUser = async (req: Request, res: Response) => {
  */
 
 const modifyDataUser = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const { id } = req.params;
-  User.findByIdAndUpdate(
-    id,
-    { $set: req.body },
-    { new: true },
-    function (err, result) {
-      if (err) {
-        return res.status(400).json({
-          modificado: false,
-          message: "error al modificar los datos",
+  try {
+    User.findByIdAndUpdate(
+      id,
+      { $set: req.body },
+      { new: true },
+      function (err, result) {
+        if (err) {
+          return res.status(400).json({
+            modificado: false,
+            message: "error al modificar los datos",
+          });
+        }
+        return res.status(200).json({
+          modificado: true,
+          data: result,
         });
       }
-      return res.status(200).json({
-        modificado: true,
-        data: result,
-      });
-    }
-  );
+    );
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 /**

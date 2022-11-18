@@ -8,8 +8,8 @@ const createUserValidator = () => {
       .withMessage("Name es obligatorio")
       .isAlpha()
       .withMessage("No se aceptan numeros, solo letras")
-      .isLength({ min: 4, max: 20 })
-      .withMessage(" Debe contener minimo 4 caracteres y maximo 20"),
+      .isLength({ min: 3, max: 20 })
+      .withMessage(" Debe contener minimo 3 caracteres y maximo 20"),
     body("city")
       .trim()
       .notEmpty()
@@ -26,4 +26,21 @@ const createUserValidator = () => {
   return validatorUser;
 };
 
-export { createUserValidator };
+const updateValidator = () => {
+  const userUpdate: ValidationChain[] = [
+    body("name")
+      .trim()
+      .isAlpha()
+      .withMessage("No se aceptan numeros, solo letras")
+      .isLength({ min: 3, max: 20 })
+      .withMessage(" Debe contener minimo 3 caracteres y maximo 20"),
+    body("city").trim().isAlpha().withMessage("No se aceptan numeros"),
+    body("phone")
+      .trim()
+      .isInt()
+      .withMessage("No se aceptan letras, solo numeros"),
+  ];
+  return userUpdate;
+};
+
+export { createUserValidator, updateValidator };

@@ -1,5 +1,4 @@
 import { ListUser } from "../ListUser/ListUser";
-import { Item } from "../Item/Item";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getAllUsers } from "../../slice";
 import { useEffect } from "react";
@@ -12,7 +11,6 @@ const Home = () => {
 
   return (
     <div>
-      <Item />
       <ListUser />
     </div>
   );

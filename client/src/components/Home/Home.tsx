@@ -5,6 +5,7 @@ import { getAllUsers } from "../../slice";
 import { useEffect } from "react";
 
 const Home = () => {
+  // const state = useAppSelector((state) => state.users.list);
   const dispatch: any = useAppDispatch();
   useEffect(() => {
     dispatch(getAllUsers());

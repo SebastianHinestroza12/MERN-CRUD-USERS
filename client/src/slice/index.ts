@@ -1,4 +1,6 @@
-import { createSlice, PayloadAction, Action } from "@reduxjs/toolkit";
+import { createSlice, ThunkDispatch } from "@reduxjs/toolkit";
+import axios from "axios";
+import { AppDispatch } from "../store/store";
 
 // interface CounterState {
 //   name: string;
@@ -6,20 +8,26 @@ import { createSlice, PayloadAction, Action } from "@reduxjs/toolkit";
 //   phone: number;
 // }
 
-const initialState = {
-  users: [],
-};
-
 export const userSlice = createSlice({
-  name: "crudUser",
-  initialState,
+  name: "users",
+  initialState: {
+    list: [],
+  },
   reducers: {
-    allUsers: (state, action) => {
-      state.users = action.payload;
+    setUserList: (state, action) => {
+      state.list = action.payload;
     },
   },
 });
 
-export const { allUsers } = userSlice.actions;
+export const { setUserList } = userSlice.actions;
+export const reducerUsers = userSlice.reducer;
 
-export default userSlice.reducer;
+export const getAllUsers = () => {
+  return async function (AppDispatch: any) {
+    // let json = await axios.get("https://reqres.in/api/users?per_page=12");
+    let json = await axios.get("/");
+    console.log(json);
+    return AppDispatch(setUserList(json.data));
+  };
+};

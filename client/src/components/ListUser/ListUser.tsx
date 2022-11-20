@@ -1,12 +1,12 @@
+import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { Link, useParams } from "react-router-dom";
 import MaterialTable, { Column } from "@material-table/core";
-import { deleteUserList } from "../../slice";
+import { deleteUsers, getAllUsers } from "../../slice";
+import Swal from "sweetalert2";
 
 const ListUser = () => {
   const dispatch: any = useAppDispatch();
   const stateList = useAppSelector((state) => state.users.list);
-  const { id } = useParams();
 
   interface IPerson {
     id: number;
@@ -39,7 +39,7 @@ const ListUser = () => {
         data={dataUser}
         actions={[
           {
-            icon: "editable",
+            icon: "edit",
             tooltip: "Editar",
             onClick: () => {
               alert("si");
@@ -50,7 +50,26 @@ const ListUser = () => {
             icon: "delete",
             tooltip: "Delete User",
             onClick: () => {
-              dispatch(deleteUserList(rowData.id));
+              Swal.fire({
+                text: "Esta seguro que desea eliminar este registro?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, eliminar!",
+                cancelButtonText: "Cancelar",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  dispatch(deleteUsers(rowData.id));
+                  dispatch(getAllUsers());
+                  Swal.fire({
+                    title: "Registro eliminado!",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 1000,
+                  });
+                }
+              });
             },
           }),
         ]}

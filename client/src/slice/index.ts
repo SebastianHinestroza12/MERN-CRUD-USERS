@@ -23,13 +23,10 @@ export const userSlice = createSlice({
     setUserList: (state, action) => {
       state.list = action.payload;
     },
-    deleteUserList: (state, action) => {
-      state.list = action.payload;
-    },
   },
 });
 
-export const { setUserList, deleteUserList } = userSlice.actions;
+export const { setUserList } = userSlice.actions;
 export const reducerUsers = userSlice.reducer;
 
 export const getAllUsers = () => {
@@ -41,6 +38,13 @@ export const getAllUsers = () => {
 export const deleteUsers = (id: any) => {
   return async function (AppDispatch: any) {
     let json = await axios.delete(`/${id}`);
-    return AppDispatch(deleteUserList(json.data));
+    return AppDispatch(json.data);
+  };
+};
+
+export const UpdateUsers = (id: any, data: any) => {
+  return async function (AppDispatch: any) {
+    let json = await axios.put(`/${id}`, data);
+    return AppDispatch(json.data);
   };
 };

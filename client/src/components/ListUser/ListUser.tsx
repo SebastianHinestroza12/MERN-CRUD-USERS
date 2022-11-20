@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import MaterialTable, { Column } from "@material-table/core";
 import { deleteUsers, getAllUsers } from "../../slice";
 import Swal from "sweetalert2";
+import "./ListUser.css";
 
 const ListUser = () => {
   const dispatch: any = useAppDispatch();
@@ -32,51 +33,53 @@ const ListUser = () => {
   });
 
   return (
-    <div className="App">
-      <MaterialTable
-        title="Lista De Usuarios"
-        columns={columns}
-        data={dataUser}
-        actions={[
-          {
-            icon: "edit",
-            tooltip: "Editar",
-            onClick: () => {
-              alert("si");
+    <div className="container-list">
+      <div className="container-item">
+        <MaterialTable
+          title="Lista De Usuarios"
+          columns={columns}
+          data={dataUser}
+          actions={[
+            {
+              icon: "edit",
+              tooltip: "Editar",
+              onClick: () => {
+                alert("si");
+              },
             },
-          },
 
-          (rowData) => ({
-            icon: "delete",
-            tooltip: "Delete User",
-            onClick: () => {
-              Swal.fire({
-                text: "Esta seguro que desea eliminar este registro?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Si, eliminar!",
-                cancelButtonText: "Cancelar",
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  dispatch(deleteUsers(rowData.id));
-                  dispatch(getAllUsers());
-                  Swal.fire({
-                    title: "Registro eliminado!",
-                    icon: "success",
-                    showConfirmButton: false,
-                    timer: 1000,
-                  });
-                }
-              });
-            },
-          }),
-        ]}
-        options={{
-          actionsColumnIndex: -1,
-        }}
-      />
+            (rowData) => ({
+              icon: "delete",
+              tooltip: "Delete User",
+              onClick: () => {
+                Swal.fire({
+                  text: "Esta seguro que desea eliminar este registro?",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Si, eliminar!",
+                  cancelButtonText: "Cancelar",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    dispatch(deleteUsers(rowData.id));
+                    dispatch(getAllUsers());
+                    Swal.fire({
+                      title: "Registro eliminado!",
+                      icon: "success",
+                      showConfirmButton: false,
+                      timer: 1000,
+                    });
+                  }
+                });
+              },
+            }),
+          ]}
+          options={{
+            actionsColumnIndex: -1,
+          }}
+        />
+      </div>
     </div>
   );
 };

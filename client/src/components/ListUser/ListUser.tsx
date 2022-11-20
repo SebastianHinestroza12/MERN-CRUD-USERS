@@ -4,6 +4,7 @@ import MaterialTable, { Column } from "@material-table/core";
 import { deleteUsers, getAllUsers } from "../../slice";
 import Swal from "sweetalert2";
 import "./ListUser.css";
+import { Link } from "react-router-dom";
 
 const ListUser = () => {
   const dispatch: any = useAppDispatch();
@@ -43,9 +44,7 @@ const ListUser = () => {
             {
               icon: "edit",
               tooltip: "Editar",
-              onClick: () => {
-                alert("si");
-              },
+              onClick: () => {},
             },
 
             (rowData) => ({

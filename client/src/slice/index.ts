@@ -48,3 +48,9 @@ export const UpdateUsers = (id: any, data: any) => {
     return AppDispatch(json.data);
   };
 };
+export const postUsers = (data: any) => {
+  return async function (AppDispatch: any) {
+    let json = await axios.post("/", data);
+    return AppDispatch(json.data);
+  };
+};

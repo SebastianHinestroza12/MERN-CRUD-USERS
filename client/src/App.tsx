@@ -5,6 +5,7 @@ import { Route } from "react-router-dom";
 import { NavbarUser } from "./components/Navbar/index";
 import { Home } from "./components/Home/Home";
 import { UpdateUser } from "./components/UpdateUser/UpdateUser";
+import { Create } from "./components/CreateUser/CreateUser";
 function App() {
   return (
     <div className="App">
@@ -13,8 +14,8 @@ function App() {
           <NavbarUser />
           <Home />
         </Route>
-        <Route exact path={"/update"}>
-          <UpdateUser />
+        <Route exact path={"/create"}>
+          <Create />
         </Route>
       </Fragment>
     </div>

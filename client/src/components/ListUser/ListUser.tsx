@@ -1,10 +1,8 @@
-import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import MaterialTable, { Column } from "@material-table/core";
 import { deleteUsers, getAllUsers } from "../../slice";
 import Swal from "sweetalert2";
 import "./ListUser.css";
-import { Link } from "react-router-dom";
 
 const ListUser = () => {
   const dispatch: any = useAppDispatch();
@@ -19,9 +17,9 @@ const ListUser = () => {
 
   const columns: Array<Column<IPerson>> = [
     { title: "Id", field: "id", type: "numeric" },
-    { title: "Name", field: "name" },
-    { title: "City", field: "city" },
-    { title: "Phone", field: "phone", type: "numeric" },
+    { title: "Nombre", field: "name" },
+    { title: "Ciudad", field: "city" },
+    { title: "Telefono", field: "phone", type: "numeric" },
   ];
 
   const dataUser = stateList.map((el) => {

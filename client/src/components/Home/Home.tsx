@@ -1,6 +1,7 @@
 import { ListUser } from "../ListUser/ListUser";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getAllUsers } from "../../slice";
+import { Footer } from "../Footer/Footer";
 import { useEffect } from "react";
 
 const Home = () => {
@@ -12,6 +13,7 @@ const Home = () => {
   return (
     <div>
       <ListUser />
+      <Footer />
     </div>
   );
 };
